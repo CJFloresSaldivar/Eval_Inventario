@@ -1,0 +1,22 @@
+.btn-circlepl {
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+
+    .btn-light-blue {
+        background-color: #ff4d4d;;
+        border-color: #ff4d4d;
+        color: white;
+    }
+
+    .btn-light-blue:hover {
+        background-color: #ff3333;
+        border-color: #ff3333;
+        color: white;
+    }

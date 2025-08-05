@@ -14,11 +14,30 @@ $(document).ready(function() {
             $('#cantidadError').addClass('d-none');
         }
         console.log("Nueva cantidad:", {
-            id: $('#id_producto').val(),
+            id: $('#id_productol').val(),
             nueva_cantidad: nueva_cantidad
         });
         actualizarCantidad(id_producto, nueva_cantidad);
         $('#producto_plusModal').modal('hide');
+    });
+
+    $('#confirmarCantidadl').click(function() {
+        const nueva_cantidad = parseInt($('#cantidadInputl').val());
+        const cantidad_actual = parseInt($('#cantidadActualHiddenl').val());
+        const id_producto=$('#id_productol').val();
+        if (nueva_cantidad > cantidad_actual) {
+            $('#cantidadErrorl').removeClass('d-none');
+            return;
+        } else {
+            $('#cantidadErrorl').addClass('d-none');
+
+        }
+        console.log("Nueva cantidad:", {
+            id: $('#id_productol').val(),
+            nueva_cantidad: cantidad_actual-nueva_cantidad
+        });
+        actualizarCantidad(id_producto, cantidad_actual-nueva_cantidad);
+        $('#producto_minusModal').modal('hide');
     });
 
     cargaProducto ();
@@ -53,7 +72,7 @@ async function cargaProducto() {
         '                   '+item.cantidad+
         '               </div></div>'+
         '               <div class="col-md-6"><div class="text-left">'+
-        '                   '+load_btn_plus(item.idProducto,item.cantidad)+
+        '                   '+load_btn_plus(item.idProducto,item.cantidad,item.nombreProducto)+
         '               </div></div>'+
         '           </div></th>'+
         '           <th>'+cargarStatus(item.status,item.idProducto)+
@@ -148,23 +167,52 @@ async function actualizarCantidad(id, nuevaCantidad) {
 }
 
 //FUNCIONES objetos CSS
-function load_btn_plus(id,cantidad){
-    let btn_plus= '               <a href="#" ><button name="btn_plus" onclick="producto_plus_mod('+id+','+cantidad+')" type="button" class="btn btn-circlep btn-light-blue" >'+
-                  '                  <i class="fas fa-plus"></i>'+
-                  '               </button></a>';
+function load_btn_plus(id,cantidad,nombre){
+    const id_rolg = document.getElementById('id_rolGral').value;
+    let btn_plus= '';
+    switch(id_rolg){
+        case '1':
+            btn_plus= `
+                <a href="#" name="btn_plus" onclick="producto_plus_mod('${id}','${cantidad}')" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+
+                </a>
+
+            `;
+
+            break;
+        case '2':
+            btn_plus= `
+                            <a href="#" name="btn_minus" onclick="producto_minus_mod('${id}','${cantidad}','${nombre}')"  class="btn btn-danger btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-minus"></i>
+                                </span>
+
+                            </a>
+                       `;
+
+            break;
+    }
+
+
+
     return btn_plus;
 };
 function cargarStatus(status,id){
     let reStatus='';
+    const id_rolg = document.getElementById('id_rolGral').value;
+    const disable_status = id_rolg === 1 ? 'onclick="changeStatus('+id+')"': '';
     if(status){
-        reStatus='             <div class="text-center">'+
-                 '               <a href="#" alt="HABILITADO" name="btn'+id+'" onclick="changeStatus('+id+')" class="btn btn-success btn-circle btn-sm">'+
+        reStatus='             <div class="text-center"  >'+
+                 '               <a href="#" alt="HABILITADO" name="btn'+id+'" '+disable_status+' class="btn btn-success btn-circle btn-sm"  >'+
                  '                  <i class="fas fa-check"></i>'+
                  '               </a>'
                  '             </div>';
     }else{
-        reStatus='             <div class="text-center">'+
-                 '             <a href="#" alt="DESHABILITADO" name="btn'+id+'" onclick="changeStatus('+id+')" class="btn btn-warning btn-circle btn-sm">'+
+        reStatus='             <div class="text-center"  >'+
+                 '             <a href="#" alt="DESHABILITADO" name="btn'+id+'" '+disable_status+' class="btn btn-warning btn-circle btn-sm"   >'+
                  '                   <i class="fas fa-exclamation-triangle"></i>'+
                  '                </a>'+
                  '           </th>'+
@@ -212,5 +260,14 @@ function producto_plus_mod(id,cantidad_actual){
         document.getElementById('cantidadActualHidden').value=cantidad_actual;
         document.getElementById('cantidadInput').value=cantidad_actual;
         $('#producto_plusModal').modal('show');
+
+}
+function producto_minus_mod(id,cantidad_actual,nombre){
+        document.getElementById('nombreproductol').innerHTML=nombre;
+        document.getElementById('cantidadActualTextl').innerHTML=cantidad_actual;
+        document.getElementById('id_productol').value=id;
+        document.getElementById('cantidadActualHiddenl').value=cantidad_actual;
+        document.getElementById('cantidadInputl').value=cantidad_actual;
+        $('#producto_minusModal').modal('show');
 
 }

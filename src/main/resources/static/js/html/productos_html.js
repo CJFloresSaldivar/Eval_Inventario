@@ -1,5 +1,113 @@
 export function generarPaginaProductos(usuario,rol) {
-// Limpia el contenido actual del body
+
+    let SidebarSection = '';
+    let altaProducto='';
+
+
+    switch(rol){
+        case '1':
+             SidebarSection = `
+                                <!-- Sidebar - Brand -->
+                                <a id="sindex" onclick='window.generatePage("index","${usuario}","${rol}")'  class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                                    <div class="sidebar-brand-icon rotate-n-15">
+                                        <i class="fas fa-warehouse-wink"></i>
+                                    </div>
+                                    <div class="sidebar-brand-text mx-3"> <sup>Inventario</sup></div>
+                                </a>
+
+                                <!-- Divider -->
+                                <hr class="sidebar-divider my-0">
+
+                                <!-- Nav Item - Dashboard -->
+                                <li class="nav-item active">
+                                    <a id="sentrada" onclick='window.generatePage("productos","${usuario}","${rol}")' class="nav-link" href="#">
+                                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                                        <span>Inventario</span></a>
+                                </li>
+
+                                <!-- Divider -->
+                                <hr class="sidebar-divider">
+
+
+
+
+                                <!-- Nav Item - Tables -->
+                                <li class="nav-item">
+                                    <a id="sjournal" onclick='window.generatePage("journal","${usuario}","${rol}")' class="nav-link" href="#">
+                                        <i class="fas fa-fw fa-table"></i>
+                                        <span>Histórico</span></a>
+                                </li>
+
+                                <!-- Divider -->
+                                <hr class="sidebar-divider d-none d-md-block">
+
+                                <!-- Sidebar Toggler (Sidebar) -->
+                                <div class="text-center d-none d-md-inline">
+                                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                                </div>
+
+            `;
+            altaProducto=`
+                                            <div class="card border-left-success shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <button type="button" class="btn btn-outline-success"  id="nuevo_producto">Agregar nuevo Producto</button>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-plus fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+            `;
+
+            break;
+        case '2':
+             SidebarSection = `
+                                            <!-- Sidebar - Brand -->
+                                            <a id="sindex" onclick='window.generatePage("index","${usuario}","${rol}")'  class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                                                <div class="sidebar-brand-icon rotate-n-15">
+                                                    <i class="fas fa-warehouse-wink"></i>
+                                                </div>
+                                                <div class="sidebar-brand-text mx-3"> <sup>Inventario</sup></div>
+                                            </a>
+
+                                            <!-- Divider -->
+                                            <hr class="sidebar-divider my-0">
+
+
+
+
+                                            <!-- Nav Item - Charts -->
+                                            <li class="nav-item">
+                                                <a id="ssalida" onclick='window.generatePage("productos","${usuario}","${rol}")' class="nav-link" href="#">
+                                                    <i class="fas fa-fw fa-chart-area"></i>
+                                                    <span>Salida productos</span></a>
+                                            </li>
+
+
+
+                                            <!-- Divider -->
+                                            <hr class="sidebar-divider d-none d-md-block">
+
+                                            <!-- Sidebar Toggler (Sidebar) -->
+                                            <div class="text-center d-none d-md-inline">
+                                                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                                            </div>
+
+            `;
+            altaProducto=`
+
+            `;
+
+            break;
+    }
+
+    const ss_val = SidebarSection
+    const ap_val = altaProducto
+
     const htmlContent = `
 
 
@@ -25,6 +133,7 @@ export function generarPaginaProductos(usuario,rol) {
         <!-- Custom styles for this template-->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <link href="css/stylev.css" rel="stylesheet">
+        <link href="css/stylev2.css" rel="stylesheet">
     </head>
 
     <body id="page-top">
@@ -35,53 +144,7 @@ export function generarPaginaProductos(usuario,rol) {
             <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                <!-- Sidebar - Brand -->
-                <a onclick='window.generatePage("index","${usuario}","${rol}")'  class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-warehouse-wink"></i>
-                    </div>
-                    <div class="sidebar-brand-text mx-3"> <sup>Inventario</sup></div>
-                </a>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
-                    <a onclick='window.generatePage("productos","${usuario}","${rol}")' class="nav-link" href="#">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Inventario</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-
-
-                <!-- Nav Item - Charts -->
-                <li class="nav-item">
-                    <a onclick='window.generatePage("productos","${usuario}","${rol}")' class="nav-link" href="#">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Salida productos</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a onclick='window.generatePage("journal","${usuario}","${rol})"' class="nav-link" href="#">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Histórico</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
-
-                <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
+                ${ss_val}
 
 
 
@@ -183,18 +246,7 @@ export function generarPaginaProductos(usuario,rol) {
                             <div class="col-xl-3 col-md-6 mb-4"></div>
                             <div class="col-xl-3 col-md-6 mb-4"></div>
                             <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <button type="button" class="btn btn-outline-success"  id="nuevo_producto">Agregar nuevo Producto</button>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-plus fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                ${ap_val}
                             </div>
                         </div>
                         <!-- DataTales Example -->
@@ -203,7 +255,9 @@ export function generarPaginaProductos(usuario,rol) {
                                 <h6 class="m-0 font-weight-bold text-primary">Listado de Productos</h6>
                             </div>
                             <div class="card-body">
+                                <input type="hidden" id="id_rolGral" value="${rol}">
                                 <div class="table-responsive">
+
                                     <table class="table table-bordered" id="productos" width="100%" cellspacing="0">
                                         <thead>
                                         <tr>
@@ -327,7 +381,7 @@ export function generarPaginaProductos(usuario,rol) {
             </div>
         </div>
 
-        <!-- Modal para nuevo producto -->
+        <!-- Modal incrementar  -->
         <div class="modal fade" id="producto_plusModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -355,6 +409,39 @@ export function generarPaginaProductos(usuario,rol) {
                 </div>
             </div>
         </div>
+
+        <!-- Modal salida  -->
+            <div class="modal fade" id="producto_minusModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Salida de Productos</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formCantidad">
+                                <input type="hidden" id="id_productol">
+                                <input type="hidden" id="cantidadActualHiddenl">
+                                <div class="form-group">
+                                    <label id="nombreproductol"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cantidadInput">Cantidad</label>
+                                    <input type="number" class="form-control" id="cantidadInputl" min="0" required>
+                                    <small id="cantidadErrorl" class="text-danger d-none">No puede extraer mas productos de los que existen (<span id="cantidadActualTextl"></span>)</small>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" id="confirmarCantidadl">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
     </body>

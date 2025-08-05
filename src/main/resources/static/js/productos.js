@@ -28,7 +28,7 @@ function getHeaders(){
     return {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization':localStorare.token
+        'Authorization':localStorage.token
     }
 }
 

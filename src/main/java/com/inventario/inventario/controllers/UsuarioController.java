@@ -8,6 +8,7 @@ import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,11 +19,21 @@ public class UsuarioController {
     @Autowired
     private JWTUtil jwtUtil;
 
+    private boolean validartoken(String token){
+        String usuarioId = jwtUtil.getKey(token);
+        return usuarioId != null;
+    }
+
     @RequestMapping(value="api/usuario")
     public List<Usuario> getUsuarios(@RequestHeader(value="Authorization") String token){
-        jwtUtil.get
+        String usuarioId = jwtUtil.getKey(token);
+        if (usuarioId == null){
+            return new ArrayList<>();
+        }
         return usuarioDao.getUsuarios();
     }
+
+
 
     @RequestMapping(value = "api/new_usuario", method = RequestMethod.POST)
     public void crearUsuario(@RequestBody Usuario usuario) {

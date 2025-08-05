@@ -23,7 +23,7 @@ public class AuthController {
         Usuario verificado=usuarioDao.verificarEmailPass(usuario);
         List<String> respuestas= new ArrayList<>();
         if(verificado != null){
-            String tokenJwt = jwtUtil.create(String.valueOf( verificado.getIdUsuario()), verificado.getCorreo()    );
+            String tokenJwt = jwtUtil.create(String.valueOf( verificado.getIdUsuario()), verificado.getCorreo() );
             respuestas.add(tokenJwt);
             respuestas.add(String.valueOf( verificado.getRol()));
             return respuestas;

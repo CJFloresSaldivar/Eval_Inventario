@@ -15,10 +15,7 @@ $(document).ready(function() {
 
               const response = await fetch('api/new_usuario', {
                   method: 'POST',
-                  headers: {
-                       'Accept': 'application/json',
-                      'Content-Type': 'application/json',
-                  },
+                  headers: getHeaders(),
                   body: JSON.stringify(usuario)
               });
 
@@ -39,14 +36,14 @@ function getHeaders(){
     return {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization':localStorare.token
+        'Authorization':localStorage.token
     }
 }
 async function cargaUsuarios() {
 
   const rawResponse = await fetch('api/usuario', {
     method: 'GET',
-    headers: getHeaders,
+    headers: getHeaders(),
     //buil o update
     //body: JSON.stringify({a: 1, b: 'Textual content'})
   });

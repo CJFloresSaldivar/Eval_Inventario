@@ -1,6 +1,8 @@
 package com.inventario.inventario.dao;
 
+import com.inventario.inventario.models.Journal;
 import com.inventario.inventario.models.Producto;
+import com.inventario.inventario.models.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceException;
@@ -74,7 +76,7 @@ public class ProductoDaoImp implements ProductoDao {
     }
 
     @Override
-    public void actualizarCantidad(int id, int nuevaCantidad) {
+    public void actualizarCantidad(int id, int nuevaCantidad, Usuario usuario) {
         try {
             if (nuevaCantidad < 0) {
                 throw new IllegalArgumentException("La cantidad no puede ser negativa");
@@ -85,8 +87,33 @@ public class ProductoDaoImp implements ProductoDao {
                 throw new IllegalArgumentException("Producto no encontrado con ID: " + id);
             }
 
+            Journal.TipoMovimiento tipoMovimiento;
+            if (nuevaCantidad > producto.getCantidad()) {
+                tipoMovimiento = Journal.TipoMovimiento.E; // Entrada
+            } else if (nuevaCantidad < producto.getCantidad()) {
+                tipoMovimiento = Journal.TipoMovimiento.S; // Salida
+            } else {
+                // No hay cambio en la cantidad, no se registra movimiento
+                return;
+            }
+
             producto.setCantidad(nuevaCantidad);
             entityManager.merge(producto);
+
+            // Actualizar la cantidad del producto
+            producto.setCantidad(nuevaCantidad);
+            entityManager.merge(producto);
+
+            // Crear y persistir el registro en journal
+            Journal journalEntry = new Journal();
+            journalEntry.setProducto(producto);
+            journalEntry.setTipoMovimiento(tipoMovimiento);
+            journalEntry.setUsuario(usuario);
+
+            entityManager.persist(journalEntry);
+
+
+
             entityManager.flush();
         } catch (PersistenceException e) {
             throw new DataAccessException("Error al actualizar la cantidad del producto", e) {};

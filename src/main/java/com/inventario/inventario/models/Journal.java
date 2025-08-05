@@ -34,15 +34,4 @@ public class Journal {
         E, S
     }
 
-    // Constructor vacío necesario para JPA
-    public Journal() {
-    }
-
-    // Constructor con parámetros (opcional)
-    public Journal(TipoMovimiento tipoMovimiento, Producto producto, Usuario usuario) {
-        this.tipoMovimiento = tipoMovimiento;
-        this.producto = producto;
-        this.usuario = usuario;
-        this.fecha = LocalDateTime.now();
-    }
 }

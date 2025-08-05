@@ -8,6 +8,6 @@ public interface UsuarioDao {
 
     List<Usuario> getUsuarios();
     Usuario verificarEmailPass (Usuario usuario);
-
+    Usuario obtenerPorId (int usuarioId);
     void registrar(Usuario usuario);
 }

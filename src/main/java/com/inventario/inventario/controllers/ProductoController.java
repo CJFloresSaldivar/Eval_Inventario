@@ -2,8 +2,12 @@ package com.inventario.inventario.controllers;
 
 
 import com.inventario.inventario.dao.ProductoDao;
+import com.inventario.inventario.dao.UsuarioDao;
 import com.inventario.inventario.models.Producto;
+import com.inventario.inventario.models.Usuario;
+import com.inventario.inventario.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +18,12 @@ import java.util.List;
 public class ProductoController {
     @Autowired
     private ProductoDao productoDao;
+
+    @Autowired
+    private UsuarioDao usuarioDao;
+
+    @Autowired
+    private JWTUtil jwtUtil;
 
     @RequestMapping(value="api/listaproductos")
     public List<Producto> getProductos(){
@@ -64,9 +74,22 @@ public class ProductoController {
     }
 
     @RequestMapping(value="api/productos/cantidad", method = RequestMethod.PUT)
-    public ResponseEntity<String> actualizarCantidad(@RequestBody Producto producto) {
+    public ResponseEntity<String> actualizarCantidad(
+            @RequestBody Producto producto,
+            @RequestHeader(value="Authorization") String token) {
+        System.out.printf("0");
         try {
-            productoDao.actualizarCantidad(producto.getIdProducto(), producto.getCantidad());
+            // Verificar token y obtener usuario
+            String usuarioId = jwtUtil.getKey(token);
+            System.out.printf("1");
+            if (usuarioId == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No autorizado");
+            }
+
+
+            Usuario usuario = usuarioDao.obtenerPorId(Integer.parseInt(usuarioId));
+
+            productoDao.actualizarCantidad(producto.getIdProducto(), producto.getCantidad(), usuario);
             return ResponseEntity.ok("Cantidad actualizada correctamente");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al actualizar la cantidad: " + e.getMessage());

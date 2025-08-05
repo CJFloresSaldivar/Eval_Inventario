@@ -14,7 +14,7 @@ $(document).ready(function() {
             $('#cantidadError').addClass('d-none');
         }
         console.log("Nueva cantidad:", {
-            id: $('#id_productol').val(),
+            id: $('#id_producto').val(),
             nueva_cantidad: nueva_cantidad
         });
         actualizarCantidad(id_producto, nueva_cantidad);
@@ -144,21 +144,19 @@ async function actualizarCantidad(id, nuevaCantidad) {
     try {
         const response = await fetch('api/productos/cantidad', {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: getHeaders(),
             body: JSON.stringify({
                 idProducto: id,
-                cantidad: nuevaCantidad
+                cantidad: nuevaCantidad,
             })
         });
-
+        console.log('res:'+response.ok);
         if (response.ok) {
             $('#producto_plusModal').modal('hide');
             cargaProducto(); // Recargar la tabla para ver los cambios
         } else {
             const errorData = await response.json();
-            alert("Error al actualizar la cantidad: " + (errorData.message || "Error desconocido"));
+            alert("Error al actualizar la cantidad_v: " + (errorData.message || "Error desconocido_v"));
         }
     } catch (error) {
         console.error("Error:", error);

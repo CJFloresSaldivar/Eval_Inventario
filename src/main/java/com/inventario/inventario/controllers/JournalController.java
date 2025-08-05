@@ -1,19 +1,22 @@
 package com.inventario.inventario.controllers;
 
+import com.inventario.inventario.dao.JournalDao;
 import com.inventario.inventario.models.Journal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class JournalController {
-    @RequestMapping (value="api/journal")
-    public Journal getJournal(){
-        Journal journal = new Journal();
-        String dateTime="2020-12-12 01:24:23";
-        java.sql.Timestamp timestamp = java.sql.Timestamp.valueOf(dateTime);
-        journal.setIdJournal(1);
-        journal.setTipoMovimiento(Journal.TipoMovimiento.valueOf("S"));
-        journal.setFecha(timestamp.toLocalDateTime());
-        return journal;
+    @Autowired
+    private JournalDao journalDao;
+
+
+
+    @RequestMapping (value="api/listajournal")
+    public List<Journal> getJournal(){
+        return  journalDao.getJournal();
     }
 }

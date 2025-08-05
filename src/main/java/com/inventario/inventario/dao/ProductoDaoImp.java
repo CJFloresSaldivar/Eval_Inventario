@@ -88,10 +88,14 @@ public class ProductoDaoImp implements ProductoDao {
             }
 
             Journal.TipoMovimiento tipoMovimiento;
+            int cantidadMovimiento = 0;
+
             if (nuevaCantidad > producto.getCantidad()) {
                 tipoMovimiento = Journal.TipoMovimiento.E; // Entrada
+                cantidadMovimiento = nuevaCantidad - producto.getCantidad();
             } else if (nuevaCantidad < producto.getCantidad()) {
                 tipoMovimiento = Journal.TipoMovimiento.S; // Salida
+                cantidadMovimiento = producto.getCantidad() - nuevaCantidad;
             } else {
                 // No hay cambio en la cantidad, no se registra movimiento
                 return;
@@ -109,6 +113,7 @@ public class ProductoDaoImp implements ProductoDao {
             journalEntry.setProducto(producto);
             journalEntry.setTipoMovimiento(tipoMovimiento);
             journalEntry.setUsuario(usuario);
+            journalEntry.setCantidadMovimiento(cantidadMovimiento);
 
             entityManager.persist(journalEntry);
 

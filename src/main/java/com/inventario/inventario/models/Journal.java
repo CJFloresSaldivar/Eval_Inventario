@@ -18,6 +18,9 @@ public class Journal {
     @Column(name = "tipo_movimiento", columnDefinition = "ENUM('E','S')")
     private TipoMovimiento tipoMovimiento;
 
+    @Column(name = "cantidad_movimiento")
+    private int cantidadMovimiento;
+
     @ManyToOne
     @JoinColumn(name = "id_producto", referencedColumnName = "id_producto")
     private Producto producto;

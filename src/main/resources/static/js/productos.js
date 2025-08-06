@@ -1,5 +1,54 @@
-// Call the dataTables jQuery plugin
+let table_productos;
 $(document).ready(function() {
+
+    table_productos = $('#productos').DataTable({
+        // Configuración inicial
+        columns: [
+            { data: 'idProducto' },
+            { data: 'nombreProducto' },
+            {
+                data: null,
+                render: function(data, type, row) {
+                    // Solo aplicamos el renderizado para visualización (no para ordenación/filtrado)
+                    const btnLP = load_btn_plus(row.idProducto,row.cantidad,row.nombreProducto);
+                    if (type === 'display') {
+
+                        return `
+                            <div class="row" justify-content-center>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        ${row.cantidad}
+                                    </div>
+                                </div>
+                                <div class="col-md-6"><div class="text-left">
+                                    ${btnLP}
+                                </div></div>
+                            </div>
+                        `;
+                    }
+                    // Para otros tipos (ordenación, filtrado), devolvemos el dato original
+                    return row.cantidad;
+                }
+            },
+            {
+                data: null,
+                render: function(data, type, row) {
+                    // Solo aplicamos el renderizado para visualización (no para ordenación/filtrado)
+                    const btnStatus = cargarStatus(row.status,row.idProducto);
+                    if (type === 'display') {
+
+                        return `
+                            ${btnStatus}
+                        `;
+                    }
+                    // Para otros tipos (ordenación, filtrado), devolvemos el dato original
+                    return row.status;
+                }
+            }
+        ]
+    });
+
+
     nuevoProducto();
     document.getElementById('guardarProducto').addEventListener('click', altaProducto);
 
@@ -41,7 +90,7 @@ $(document).ready(function() {
     });
 
     cargaProducto ();
-    $('#productos').DataTable();
+    //$('#productos').DataTable();
 });
 function getHeaders(){
     return {
@@ -60,29 +109,10 @@ async function cargaProducto() {
     //body: JSON.stringify({a: 1, b: 'Textual content'})
   });
   const productos = await rawResponse.json();
+  table_productos.clear();
+  table_productos.rows.add(productos).draw();
 
-  let productoHtml='';
-  for (let item of productos){
-    let = pHtml=''+
-        '       <tr>'+
-        '           <th>'+item.idProducto+'</th>'+
-        '           <th>'+item.nombreProducto+'</th>'+
-        '           <th><div class="row" justify-content-center>'+
-        '               <div class="col-md-6"><div class="text-center">'+
-        '                   '+item.cantidad+
-        '               </div></div>'+
-        '               <div class="col-md-6"><div class="text-left">'+
-        '                   '+load_btn_plus(item.idProducto,item.cantidad,item.nombreProducto)+
-        '               </div></div>'+
-        '           </div></th>'+
-        '           <th>'+cargarStatus(item.status,item.idProducto)+
-        '           </th>'+
-        '       </tr>';
-    productoHtml += pHtml;
 
-  }
-
-  document.querySelector('#productos tbody').outerHTML=productoHtml;
 };
 
 async function changeStatus(id){
@@ -129,9 +159,9 @@ async function altaProducto() {
 
         if (response.ok) {
             alert("Producto registrado correctamente");
-            $('#productoModal').modal('hide'); // Cierra el modal
-            cargaProducto(); // Recarga la tabla
-            document.getElementById('formProducto').reset(); // Limpia el formulario
+            $('#productoModal').modal('hide');
+            document.getElementById('formProducto').reset();
+            cargaProducto();
         } else {
             alert("Error al registrar el producto");
         }
@@ -153,7 +183,7 @@ async function actualizarCantidad(id, nuevaCantidad) {
         console.log('res:'+response.ok);
         if (response.ok) {
             $('#producto_plusModal').modal('hide');
-            cargaProducto(); // Recargar la tabla para ver los cambios
+            cargaProducto();
         } else {
             const errorData = await response.json();
             alert("Error al actualizar la cantidad_v: " + (errorData.message || "Error desconocido_v"));
@@ -183,13 +213,13 @@ function load_btn_plus(id,cantidad,nombre){
             break;
         case '2':
             btn_plus= `
-                            <a href="#" name="btn_minus" onclick="producto_minus_mod('${id}','${cantidad}','${nombre}')"  class="btn btn-danger btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-minus"></i>
-                                </span>
+                <a href="#" name="btn_minus" onclick="producto_minus_mod('${id}','${cantidad}','${nombre}')"  class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-minus"></i>
+                    </span>
 
-                            </a>
-                       `;
+                </a>
+           `;
 
             break;
     }
@@ -263,7 +293,8 @@ function producto_plus_mod(id,cantidad_actual){
 
 }
 function producto_minus_mod(id,cantidad_actual,nombre){
-        document.getElementById('nombreproductol').innerHTML=nombre;
+        const nombreEscapado = nombre.replace(/"/g, '&quot;');
+        document.getElementById('nombreproductol').innerHTML=nombreEscapado;
         document.getElementById('cantidadActualTextl').innerHTML=cantidad_actual;
         document.getElementById('id_productol').value=id;
         document.getElementById('cantidadActualHiddenl').value=cantidad_actual;

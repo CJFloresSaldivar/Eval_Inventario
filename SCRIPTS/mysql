@@ -51,7 +51,7 @@ INSERT INTO usuarios (nombre, correo, contrasena, id_rol, estatus) VALUES
 -- Insertar productos
 INSERT INTO productos (nombre_producto, cantidad, estatus) VALUES
 ('Laptop HP EliteBook', 25, 1),
-('Monitor Dell 24"', 40, 1),
+('Monitor Dell 24', 40, 1),
 ('Teclado inalámbrico Logitech', 75, 1),
 ('Mouse óptico Microsoft', 90, 1),
 ('Impresora Epson EcoTank', 15, 1),

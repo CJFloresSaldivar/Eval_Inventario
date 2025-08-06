@@ -48,7 +48,24 @@ export function generarPaginaJournal(usuario,rol) {
 
             `;
             altaProducto=`
+                                                        <div class="card border-left-success shadow h-100 py-2">
+                                                                <div class="card-body">
+                                                                    <div class="row no-gutters align-items-center">
+                                                                        <form id="formJournal">
+                                                                            <div class="form-group">
+                                                                                <label>Estado</label>
+                                                                                 <select id="filtro_journal" class="form-control" id="status" >
+                                                                                    <option value="A" selected>Entradas y Salidas</option>
+                                                                                    <option value="E">Entradas</option>
+                                                                                    <option value="S">Salidas</option>
 
+                                                                                </select>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
             `;
 
             break;
@@ -311,8 +328,21 @@ export function generarPaginaJournal(usuario,rol) {
         </div>
 
         <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
+        <!-- 1. jQuery PRIMERO (requerido por DataTables) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- 2. DataTables CSS -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+        <!-- 3. DataTables JS -->
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+        <!-- 4. Tus otros scripts (como Bootstrap, sb-admin-2, etc.) -->
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <script src="vendor/jquery/jquery.min.js"></script>
+
 
         <!-- Core plugin JavaScript-->
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>

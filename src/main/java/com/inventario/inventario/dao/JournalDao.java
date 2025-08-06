@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface JournalDao {
     List<Journal> getJournal();
+
+    List<Journal> getJournalByTipoMovimiento(Journal.TipoMovimiento tipoMovimiento);
 }

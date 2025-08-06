@@ -28,8 +28,8 @@ async function cargaJournal() {
         '           <th>'+item.idJournal+'</th>'+
         '           <th>'+item.tipoMovimiento+'</th>'+
         '           <th>'+item.cantidadMovimiento+'</th>'+
-        '           <th>'+(item.producto ? item.producto.nombre :'' )+'</th>'+
-        '           <th>'+(item.usuario ? item.usuario.nombreProducto : '')+'</th>'+
+        '           <th>'+(item.producto ? item.producto.nombreProducto :'' )+'</th>'+
+        '           <th>'+(item.usuario ? item.usuario.nombre : '')+'</th>'+
         '           <th>'+item.fecha+'</th>'+
         '           </th>'+
         '       </tr>';

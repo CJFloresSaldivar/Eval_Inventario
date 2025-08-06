@@ -64,7 +64,7 @@ export function generarPaginaJournal(usuario,rol) {
                                                                         </form>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+
                                                         </div>
             `;
 
@@ -241,7 +241,7 @@ export function generarPaginaJournal(usuario,rol) {
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Productos</h1>
+                        <h1 class="h3 mb-2 text-gray-800">Histórico</h1>
                         <p class="mb-4"> </p>
                         <div class="row">
                             <div class="col-xl-3 col-md-6 mb-4"></div>
@@ -341,11 +341,6 @@ export function generarPaginaJournal(usuario,rol) {
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/sb-admin-2.min.js"></script>
 
-        <script src="vendor/jquery/jquery.min.js"></script>
-
-
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
@@ -354,8 +349,7 @@ export function generarPaginaJournal(usuario,rol) {
         <script src="vendor/chart.js/Chart.min.js"></script>
 
         <!-- Page level custom scripts -->
-        <script src="js/demo/chart-area-demo.js"></script>
-        <script src="js/demo/chart-pie-demo.js"></script>
+
         <script src="js/login.js"></script>
 
         <script src="js/journal.js"></script>

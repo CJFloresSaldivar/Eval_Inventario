@@ -4,6 +4,7 @@ import com.inventario.inventario.dao.JournalDao;
 import com.inventario.inventario.models.Journal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,7 +17,17 @@ public class JournalController {
 
 
     @RequestMapping (value="api/listajournal")
-    public List<Journal> getJournal(){
-        return  journalDao.getJournal();
+    public List<Journal> getJournal(@RequestParam(value="filter", defaultValue="A") String filter){
+        switch (filter){
+            case "E":
+                return journalDao.getJournalByTipoMovimiento(Journal.TipoMovimiento.E);
+            case "S":
+                return journalDao.getJournalByTipoMovimiento(Journal.TipoMovimiento.S);
+            default:
+                return  journalDao.getJournal();
+        }
+
     }
+
+
 }

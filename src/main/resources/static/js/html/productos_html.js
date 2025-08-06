@@ -59,7 +59,7 @@ export function generarPaginaProductos(usuario,rol) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+
                                             </div>
             `;
 
@@ -165,9 +165,6 @@ export function generarPaginaProductos(usuario,rol) {
                             <i class="fa fa-bars"></i>
                         </button>
 
-
-
-
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
 
@@ -239,7 +236,10 @@ export function generarPaginaProductos(usuario,rol) {
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Productos</h1>
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-2 text-gray-800">Productos</h1>
+                        </div>
+
                         <p class="mb-4"> </p>
                         <div class="row">
                             <div class="col-xl-3 col-md-6 mb-4"></div>
@@ -249,33 +249,33 @@ export function generarPaginaProductos(usuario,rol) {
                                 ${ap_val}
                             </div>
                         </div>
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Listado de Productos</h6>
-                            </div>
-                            <div class="card-body">
-                                <input type="hidden" id="id_rolGral" value="${rol}">
-                                <div class="table-responsive">
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Productos</h6>
+                                </div>
+                                <div class="card-body">
+                                    <input type="hidden" id="id_rolGral" value="${rol}">
+                                    <div class="table-responsive">
 
-                                    <table class="table table-bordered" id="productos" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th>id</th>
-                                            <th>Nombre</th>
-                                            <th>Cantidad</th>
-                                            <th>Estatus</th>
+                                        <table class="table table-bordered" id="productos" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>id</th>
+                                                <th>Nombre</th>
+                                                <th>Cantidad</th>
+                                                <th>Estatus</th>
 
-                                        </tr>
-                                        </thead>
+                                            </tr>
+                                            </thead>
 
-                                        <tbody>
+                                            <tbody>
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
                     </div>
                     <!-- /.container-fluid -->

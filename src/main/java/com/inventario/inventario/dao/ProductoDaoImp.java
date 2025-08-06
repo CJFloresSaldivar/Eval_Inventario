@@ -115,6 +115,7 @@ public class ProductoDaoImp implements ProductoDao {
             journalEntry.setUsuario(usuario);
             journalEntry.setCantidadMovimiento(cantidadMovimiento);
 
+
             entityManager.persist(journalEntry);
 
 

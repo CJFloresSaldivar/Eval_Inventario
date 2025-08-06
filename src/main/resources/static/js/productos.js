@@ -201,7 +201,9 @@ function load_btn_plus(id,cantidad,nombre){
 function cargarStatus(status,id){
     let reStatus='';
     const id_rolg = document.getElementById('id_rolGral').value;
-    const disable_status = id_rolg === 1 ? 'onclick="changeStatus('+id+')"': '';
+
+    const disable_status = id_rolg === '1' ? 'onclick="changeStatus('+id+')"': '';
+
     if(status){
         reStatus='             <div class="text-center"  >'+
                  '               <a href="#" alt="HABILITADO" name="btn'+id+'" '+disable_status+' class="btn btn-success btn-circle btn-sm"  >'+

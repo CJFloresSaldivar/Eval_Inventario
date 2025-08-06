@@ -1,0 +1,1 @@
+IDE utilizado: IntelliJ idea Community Versión del lenguaje de programación utilizado java-17 DBMS utilizado y su versión mysqlnd 8.2.4 Lista de pasos para correr su aplicación inicie en http://localhost:8080/login.html con los usuarios: juan.perez@empresa.com contraseña:admin123 maria.garcia@empresa.com contraseña:almacen1

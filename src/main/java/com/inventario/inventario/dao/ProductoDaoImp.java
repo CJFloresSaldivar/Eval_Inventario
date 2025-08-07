@@ -21,8 +21,12 @@ public class ProductoDaoImp implements ProductoDao {
 
     @Override
     @Transactional
-    public List<Producto> getProductos() {
-        return entityManager.createQuery("FROM Producto").getResultList();
+    public List<Producto> getProductos(Usuario usuario) {
+        if (usuario.getRol().getIdRol() ==1) {
+            return entityManager.createQuery("FROM Producto").getResultList();
+        }else{
+            return entityManager.createQuery("FROM Producto p WHERE p.status=1").getResultList();
+        }
     }
 
     /*

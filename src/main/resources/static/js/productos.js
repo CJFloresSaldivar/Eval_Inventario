@@ -104,7 +104,7 @@ async function cargaProducto() {
 
   const rawResponse = await fetch('api/listaproductos', {
     method: 'GET',
-    headers: getHeaders,
+    headers: getHeaders(),
     //buil o update
     //body: JSON.stringify({a: 1, b: 'Textual content'})
   });
@@ -198,6 +198,8 @@ async function actualizarCantidad(id, nuevaCantidad) {
 function load_btn_plus(id,cantidad,nombre){
     const id_rolg = document.getElementById('id_rolGral').value;
     let btn_plus= '';
+    const nombre_p= nombre.replace(/(["'\\\n\r\t])/g, '\\$1');
+    console.log("nombre"+nombre_p);
     switch(id_rolg){
         case '1':
             btn_plus= `
@@ -213,7 +215,7 @@ function load_btn_plus(id,cantidad,nombre){
             break;
         case '2':
             btn_plus= `
-                <a href="#" name="btn_minus" onclick="producto_minus_mod('${id}','${cantidad}','${nombre}')"  class="btn btn-danger btn-icon-split">
+                <a href="#" name="btn_minus" onclick='producto_minus_mod("${id}","${cantidad}","${nombre_p}")'  class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-minus"></i>
                     </span>
@@ -293,8 +295,8 @@ function producto_plus_mod(id,cantidad_actual){
 
 }
 function producto_minus_mod(id,cantidad_actual,nombre){
-        const nombreEscapado = nombre.replace(/"/g, '&quot;');
-        document.getElementById('nombreproductol').innerHTML=nombreEscapado;
+
+        document.getElementById('nombreproductol').innerHTML=nombre;
         document.getElementById('cantidadActualTextl').innerHTML=cantidad_actual;
         document.getElementById('id_productol').value=id;
         document.getElementById('cantidadActualHiddenl').value=cantidad_actual;

@@ -26,8 +26,13 @@ public class ProductoController {
     private JWTUtil jwtUtil;
 
     @RequestMapping(value="api/listaproductos")
-    public List<Producto> getProductos(){
-        return productoDao.getProductos();
+    public List<Producto> getProductos( @RequestHeader(value="Authorization") String token){
+        String usuarioId= jwtUtil.getKey(token);
+        if (usuarioId == null){
+            throw new RuntimeException("No autorizado");
+        }
+        Usuario usuario=usuarioDao.obtenerPorId(Integer.parseInt(usuarioId));
+        return productoDao.getProductos(usuario);
     }
     /*
     @RequestMapping(value="api/usuario")
@@ -35,31 +40,7 @@ public class ProductoController {
         return usuarioDao.getUsuario();
     }
 */
-    @RequestMapping(value="/apiproducto")
-    public List<Producto> getListProducto() {
-        List<Producto> productos = new ArrayList<>();
-        Producto producto=new Producto();
-        producto.setIdProducto(1);
-        producto.setNombreProducto("Laptop DELL");
-        producto.setCantidad(4);
-        producto.setStatus(1);
 
-        Producto producto2=new Producto();
-        producto2.setIdProducto(2);
-        producto2.setNombreProducto("Laptop ACER");
-        producto2.setCantidad(5);
-        producto2.setStatus(1);
-
-        Producto producto3=new Producto();
-        producto3.setIdProducto(3);
-        producto3.setNombreProducto("Laptop HP EliteBook");
-        producto3.setCantidad(6);
-        producto3.setStatus(0);
-        productos.add(producto);
-        productos.add(producto2);
-        productos.add(producto3);
-        return productos;
-    }
 
     @RequestMapping(value="api/nuevoproducto/{nombre}")
     public ResponseEntity<String> altaProducto(@RequestBody Producto producto) {
@@ -97,13 +78,5 @@ public class ProductoController {
     }
 
 
-    @RequestMapping(value="api/searchp")
-    public Producto searchProducto() {
-        Producto producto=new Producto();
-        producto.setIdProducto(1);
-        producto.setNombreProducto("laptop");
-        producto.setCantidad(0);
-        producto.setStatus(0);
-        return producto;
-    }
+
 }

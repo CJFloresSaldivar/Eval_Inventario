@@ -67,7 +67,7 @@ export function generarPaginaProductos(usuario,rol) {
         case '2':
              SidebarSection = `
                                             <!-- Sidebar - Brand -->
-                                            <a id="sindex" onclick='window.generatePage("index","${usuario}","${rol}")'  class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                                            <a id="sindex" onclick='window.generatePage("productos","${usuario}","${rol}")'  class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                                                 <div class="sidebar-brand-icon rotate-n-15">
                                                     <i class="fas fa-warehouse-wink"></i>
                                                 </div>

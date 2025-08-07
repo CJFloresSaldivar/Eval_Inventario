@@ -6,7 +6,7 @@ import com.inventario.inventario.models.Usuario;
 import java.util.List;
 
 public interface ProductoDao {
-    List<Producto> getProductos();
+    List<Producto> getProductos(Usuario usuario);
 
     void modstatus(int id);
 

@@ -26,7 +26,7 @@ async function iniciarSesion() {
 
             const rolString = respuesta[1];
             const idRol = rolString.split("idRol=")[1].split(",")[0];
-
+            window.history.pushState({}, '', 'index.html');
             generatePage('index',localStorage.emal, idRol);
             //window.location.href='productos.html';
         }else{

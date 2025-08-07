@@ -1,6 +1,6 @@
-let table_productos;
-$(document).ready(function() {
 
+$(document).ready(function() {
+    window.history.pushState({}, '', 'productos.html');
     table_productos = $('#productos').DataTable({
         // Configuración inicial
         columns: [

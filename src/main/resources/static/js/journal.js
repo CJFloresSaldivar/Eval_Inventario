@@ -1,7 +1,7 @@
-let table;
+
 
 $(document).ready(function() {
-
+    window.history.pushState({}, '', 'journal.html');
     table = $('#journal').DataTable({
         // Configuración inicial
         columns: [
